@@ -79,25 +79,33 @@ class FieldEntry<EnumClass> : public FieldEntry<int> {  \
 }  /* namespace parameter */  \
 }  /* namespace dmlc */
 
-namespace xgboost {
-template <typename Type>
-struct XGBoostParameter : public dmlc::Parameter<Type> {
- protected:
-  bool initialised_ {false};
+namespace xgboost
+{
+    template<typename Type>
+    struct XGBoostParameter : public dmlc::Parameter<Type>
+    {
+    protected:
+        bool initialised_{false};
 
- public:
-  template <typename Container>
-  Args UpdateAllowUnknown(Container const& kwargs) {
-    if (initialised_) {
-      return dmlc::Parameter<Type>::UpdateAllowUnknown(kwargs);
-    } else {
-      auto unknown = dmlc::Parameter<Type>::InitAllowUnknown(kwargs);
-      initialised_ = true;
-      return unknown;
-    }
-  }
-  bool GetInitialised() const { return static_cast<bool>(this->initialised_); }
-};
+    public:
+        template<typename Container>
+        Args UpdateAllowUnknown(Container const &kwargs)
+        {
+            if (initialised_)
+            {
+                return dmlc::Parameter<Type>::UpdateAllowUnknown(kwargs);
+            }
+            else
+            {
+                auto unknown = dmlc::Parameter<Type>::InitAllowUnknown(kwargs);
+                initialised_ = true;
+                return unknown;
+            }
+        }
+
+        bool GetInitialised() const
+        { return static_cast<bool>(this->initialised_); }
+    };
 }  // namespace xgboost
 
 #endif  // XGBOOST_PARAMETER_H_

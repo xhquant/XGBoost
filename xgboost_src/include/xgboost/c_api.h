@@ -9,8 +9,10 @@
 
 #ifdef __cplusplus
 #define XGB_EXTERN_C extern "C"
+
 #include <cstdio>
 #include <cstdint>
+
 #else
 #define XGB_EXTERN_C
 #include <stdio.h>
@@ -40,7 +42,7 @@ typedef void *BoosterHandle;  // NOLINT(*)
  * \param minor Store the minor version number
  * \param patch Store the patch (revision) number
  */
-XGB_DLL void XGBoostVersion(int* major, int* minor, int* patch);
+XGB_DLL void XGBoostVersion(int *major, int *minor, int *patch);
 
 /*!
  * \brief Get compile information of shared library.
@@ -70,7 +72,7 @@ XGB_DLL const char *XGBGetLastError(void);
  *       will run on the thread that registered it
  * \return 0 for success, -1 for failure
  */
-XGB_DLL int XGBRegisterLogCallback(void (*callback)(const char*));
+XGB_DLL int XGBRegisterLogCallback(void (*callback)(const char *));
 
 /*!
  * \brief Set global configuration (collection of parameters that apply globally). This function
@@ -80,14 +82,14 @@ XGB_DLL int XGBRegisterLogCallback(void (*callback)(const char*));
  *                 be flat: no value can be a JSON object or an array.
  * \return 0 for success, -1 for failure
  */
-XGB_DLL int XGBSetGlobalConfig(const char* json_str);
+XGB_DLL int XGBSetGlobalConfig(const char *json_str);
 
 /*!
  * \brief Get current global configuration (collection of parameters that apply globally).
  * \param json_str pointer to received returned global configuration, represented as a JSON string.
  * \return 0 for success, -1 for failure
  */
-XGB_DLL int XGBGetGlobalConfig(const char** json_str);
+XGB_DLL int XGBGetGlobalConfig(const char **json_str);
 
 /*!
  * \brief load a data matrix
@@ -96,9 +98,7 @@ XGB_DLL int XGBGetGlobalConfig(const char** json_str);
  * \param out a loaded data matrix
  * \return 0 when success, -1 when failure happens
  */
-XGB_DLL int XGDMatrixCreateFromFile(const char *fname,
-                                    int silent,
-                                    DMatrixHandle *out);
+XGB_DLL int XGDMatrixCreateFromFile(const char *fname, int silent, DMatrixHandle *out);
 
 /*!
  * \brief create a matrix content from CSR format
@@ -111,13 +111,7 @@ XGB_DLL int XGDMatrixCreateFromFile(const char *fname,
  * \param out created dmatrix
  * \return 0 when success, -1 when failure happens
  */
-XGB_DLL int XGDMatrixCreateFromCSREx(const size_t* indptr,
-                                     const unsigned* indices,
-                                     const float* data,
-                                     size_t nindptr,
-                                     size_t nelem,
-                                     size_t num_col,
-                                     DMatrixHandle* out);
+XGB_DLL int XGDMatrixCreateFromCSREx(const size_t *indptr, const unsigned *indices, const float *data, size_t nindptr, size_t nelem, size_t num_col, DMatrixHandle *out);
 
 /*!
  * \brief Create a matrix from CSR matrix.
@@ -133,11 +127,7 @@ XGB_DLL int XGDMatrixCreateFromCSREx(const size_t* indptr,
  * \param out created dmatrix
  * \return 0 when success, -1 when failure happens
  */
-XGB_DLL int XGDMatrixCreateFromCSR(char const *indptr,
-                                   char const *indices, char const *data,
-                                   bst_ulong ncol,
-                                   char const* json_config,
-                                   DMatrixHandle* out);
+XGB_DLL int XGDMatrixCreateFromCSR(char const *indptr, char const *indices, char const *data, bst_ulong ncol, char const *json_config, DMatrixHandle *out);
 
 
 /*!
@@ -151,9 +141,8 @@ XGB_DLL int XGDMatrixCreateFromCSR(char const *indptr,
  * \param out created dmatrix
  * \return 0 when success, -1 when failure happens
  */
-XGB_DLL int XGDMatrixCreateFromDense(char const *data,
-                                     char const *json_config,
-                                     DMatrixHandle *out);
+XGB_DLL int XGDMatrixCreateFromDense(char const *data, char const *json_config, DMatrixHandle *out);
+
 
 /*!
  * \brief create a matrix content from CSC format
@@ -166,13 +155,8 @@ XGB_DLL int XGDMatrixCreateFromDense(char const *data,
  * \param out created dmatrix
  * \return 0 when success, -1 when failure happens
  */
-XGB_DLL int XGDMatrixCreateFromCSCEx(const size_t* col_ptr,
-                                     const unsigned* indices,
-                                     const float* data,
-                                     size_t nindptr,
-                                     size_t nelem,
-                                     size_t num_row,
-                                     DMatrixHandle* out);
+XGB_DLL int XGDMatrixCreateFromCSCEx(const size_t *col_ptr, const unsigned *indices, const float *data, size_t nindptr, size_t nelem, size_t num_row, DMatrixHandle *out);
+
 
 /*!
  * \brief create matrix content from dense matrix
@@ -183,11 +167,9 @@ XGB_DLL int XGDMatrixCreateFromCSCEx(const size_t* col_ptr,
  * \param out created dmatrix
  * \return 0 when success, -1 when failure happens
  */
-XGB_DLL int XGDMatrixCreateFromMat(const float *data,
-                                   bst_ulong nrow,
-                                   bst_ulong ncol,
-                                   float missing,
-                                   DMatrixHandle *out);
+XGB_DLL int XGDMatrixCreateFromMat(const float *data, bst_ulong nrow, bst_ulong ncol, float missing, DMatrixHandle *out);
+
+
 /*!
  * \brief create matrix content from dense matrix
  * \param data pointer to the data space
@@ -198,10 +180,9 @@ XGB_DLL int XGDMatrixCreateFromMat(const float *data,
  * \param nthread number of threads (up to maximum cores available, if <=0 use all cores)
  * \return 0 when success, -1 when failure happens
  */
-XGB_DLL int XGDMatrixCreateFromMat_omp(const float *data,  // NOLINT
-                                       bst_ulong nrow, bst_ulong ncol,
-                                       float missing, DMatrixHandle *out,
-                                       int nthread);
+XGB_DLL int XGDMatrixCreateFromMat_omp(const float *data, bst_ulong nrow, bst_ulong ncol, float missing, DMatrixHandle *out, int nthread);
+
+
 /*!
  * \brief create matrix content from python data table
  * \param data pointer to pointer to column data
@@ -212,12 +193,8 @@ XGB_DLL int XGDMatrixCreateFromMat_omp(const float *data,  // NOLINT
  * \param nthread number of threads (up to maximum cores available, if <=0 use all cores)
  * \return 0 when success, -1 when failure happens
  */
-XGB_DLL int XGDMatrixCreateFromDT(void** data,
-                                  const char ** feature_stypes,
-                                  bst_ulong nrow,
-                                  bst_ulong ncol,
-                                  DMatrixHandle* out,
-                                  int nthread);
+XGB_DLL int XGDMatrixCreateFromDT(void **data, const char **feature_stypes, bst_ulong nrow, bst_ulong ncol, DMatrixHandle *out, int nthread);
+
 
 /*!
  * \brief Create DMatrix from CUDA columnar format. (cuDF)
@@ -230,9 +207,8 @@ XGB_DLL int XGDMatrixCreateFromDT(void** data,
  * \param out created dmatrix
  * \return 0 when success, -1 when failure happens
  */
-XGB_DLL int XGDMatrixCreateFromCudaColumnar(char const *data,
-                                            char const* json_config,
-                                            DMatrixHandle *out);
+XGB_DLL int XGDMatrixCreateFromCudaColumnar(char const *data, char const *json_config, DMatrixHandle *out);
+
 
 /*!
  * \brief Create DMatrix from CUDA array.
@@ -245,9 +221,8 @@ XGB_DLL int XGDMatrixCreateFromCudaColumnar(char const *data,
  * \param out created dmatrix
  * \return 0 when success, -1 when failure happens
  */
-XGB_DLL int XGDMatrixCreateFromCudaArrayInterface(char const *data,
-                                                  char const* json_config,
-                                                  DMatrixHandle *out);
+XGB_DLL int XGDMatrixCreateFromCudaArrayInterface(char const *data, char const *json_config, DMatrixHandle *out);
+
 
 /**
  * ========================== Begin data callback APIs =========================
@@ -299,36 +274,38 @@ typedef void *DataHolderHandle;  // NOLINT(*)
 
 
 /*! \brief Mini batch used in XGBoost Data Iteration */
-typedef struct {  // NOLINT(*)
-  /*! \brief number of rows in the minibatch */
-  size_t size;
-  /* \brief number of columns in the minibatch. */
-  size_t columns;
-  /*! \brief row pointer to the rows in the data */
+typedef struct
+{  // NOLINT(*)
+    /*! \brief number of rows in the minibatch */
+    size_t size;
+    /* \brief number of columns in the minibatch. */
+    size_t columns;
+    /*! \brief row pointer to the rows in the data */
 #ifdef __APPLE__
-  /* Necessary as Java on MacOS defines jlong as long int
-   * and gcc defines int64_t as long long int. */
-  long* offset; // NOLINT(*)
+    /* Necessary as Java on MacOS defines jlong as long int
+     * and gcc defines int64_t as long long int. */
+    long* offset; // NOLINT(*)
 #else
-  int64_t* offset;  // NOLINT(*)
+    int64_t *offset;  // NOLINT(*)
 #endif  // __APPLE__
-  /*! \brief labels of each instance */
-  float* label;
-  /*! \brief weight of each instance, can be NULL */
-  float* weight;
-  /*! \brief feature index */
-  int* index;
-  /*! \brief feature values */
-  float* value;
+    /*! \brief labels of each instance */
+    float *label;
+    /*! \brief weight of each instance, can be NULL */
+    float *weight;
+    /*! \brief feature index */
+    int *index;
+    /*! \brief feature values */
+    float *value;
 } XGBoostBatchCSR;
+
 
 /*!
  * \brief Callback to set the data to handle,
  * \param handle The handle to the callback.
  * \param batch The data content to be set.
  */
-XGB_EXTERN_C typedef int XGBCallbackSetData(  // NOLINT(*)
-    DataHolderHandle handle, XGBoostBatchCSR batch);
+XGB_EXTERN_C typedef int XGBCallbackSetData(DataHolderHandle handle, XGBoostBatchCSR batch);
+
 
 /*!
  * \brief The data reading callback function.
@@ -341,9 +318,8 @@ XGB_EXTERN_C typedef int XGBCallbackSetData(  // NOLINT(*)
  * \param set_function_handle The handle to be passed to set function.
  * \return 0 if we are reaching the end and batch is not returned.
  */
-XGB_EXTERN_C typedef int XGBCallbackDataIterNext(  // NOLINT(*)
-    DataIterHandle data_handle, XGBCallbackSetData *set_function,
-    DataHolderHandle set_function_handle);
+XGB_EXTERN_C typedef int XGBCallbackDataIterNext(DataIterHandle data_handle, XGBCallbackSetData *set_function, DataHolderHandle set_function_handle);
+
 
 /*!
  * \brief Create a DMatrix from a data iterator.
@@ -353,11 +329,8 @@ XGB_EXTERN_C typedef int XGBCallbackDataIterNext(  // NOLINT(*)
  * \param out The created DMatrix
  * \return 0 when success, -1 when failure happens.
  */
-XGB_DLL int XGDMatrixCreateFromDataIter(
-    DataIterHandle data_handle,
-    XGBCallbackDataIterNext* callback,
-    const char* cache_info,
-    DMatrixHandle *out);
+XGB_DLL int XGDMatrixCreateFromDataIter(DataIterHandle data_handle, XGBCallbackDataIterNext *callback, const char *cache_info, DMatrixHandle *out);
+
 
 /**
  * Second set of callback functions, used by constructing Quantile DMatrix or external
@@ -371,7 +344,8 @@ XGB_DLL int XGDMatrixCreateFromDataIter(
  *
  * \return 0 when success, -1 when failure happens
  */
-XGB_DLL int XGProxyDMatrixCreate(DMatrixHandle* out);
+XGB_DLL int XGProxyDMatrixCreate(DMatrixHandle *out);
+
 
 /*!
  * \brief Callback function prototype for getting next batch of data.
@@ -381,6 +355,7 @@ XGB_DLL int XGProxyDMatrixCreate(DMatrixHandle* out);
  * \return 0 when success, -1 when failure happens
  */
 XGB_EXTERN_C typedef int XGDMatrixCallbackNext(DataIterHandle iter);  // NOLINT(*)
+
 
 /*!
  * \brief Callback function prototype for resetting external iterator
@@ -415,9 +390,8 @@ XGB_EXTERN_C typedef void DataIterResetCallback(DataIterHandle handle); // NOLIN
  *
  * \return 0 when success, -1 when failure happens
  */
-XGB_DLL int XGDMatrixCreateFromCallback(DataIterHandle iter, DMatrixHandle proxy,
-                                        DataIterResetCallback *reset, XGDMatrixCallbackNext *next,
-                                        char const *c_json_config, DMatrixHandle *out);
+XGB_DLL int XGDMatrixCreateFromCallback(DataIterHandle iter, DMatrixHandle proxy, DataIterResetCallback *reset, XGDMatrixCallbackNext *next, char const *c_json_config, DMatrixHandle *out);
+
 
 /*!
  * \brief Create a Quantile DMatrix with data iterator.
@@ -444,20 +418,16 @@ XGB_DLL int XGDMatrixCreateFromCallback(DataIterHandle iter, DMatrixHandle proxy
  *
  * \return 0 when success, -1 when failure happens
  */
-XGB_DLL int XGQuantileDMatrixCreateFromCallback(DataIterHandle iter, DMatrixHandle proxy,
-                                                DataIterHandle ref, DataIterResetCallback *reset,
-                                                XGDMatrixCallbackNext *next, char const *config,
-                                                DMatrixHandle *out);
+XGB_DLL int XGQuantileDMatrixCreateFromCallback(DataIterHandle iter, DMatrixHandle proxy, DataIterHandle ref, DataIterResetCallback *reset, XGDMatrixCallbackNext *next, char const *config, DMatrixHandle *out);
+
 
 /*!
  * \brief Create a Device Quantile DMatrix with data iterator.
  * \deprecated since 2.0
  * \see XGQuantileDMatrixCreateFromCallback()
  */
-XGB_DLL int XGDeviceQuantileDMatrixCreateFromCallback(DataIterHandle iter, DMatrixHandle proxy,
-                                                      DataIterResetCallback *reset,
-                                                      XGDMatrixCallbackNext *next, float missing,
-                                                      int nthread, int max_bin, DMatrixHandle *out);
+XGB_DLL int XGDeviceQuantileDMatrixCreateFromCallback(DataIterHandle iter, DMatrixHandle proxy, DataIterResetCallback *reset, XGDMatrixCallbackNext *next, float missing, int nthread, int max_bin, DMatrixHandle *out);
+
 
 /*!
  * \brief Set data on a DMatrix proxy.
@@ -469,8 +439,8 @@ XGB_DLL int XGDeviceQuantileDMatrixCreateFromCallback(DataIterHandle iter, DMatr
  * \return 0 when success, -1 when failure happens
  */
 XGB_DLL int
-XGProxyDMatrixSetDataCudaArrayInterface(DMatrixHandle handle,
-                                        const char *c_interface_str);
+XGProxyDMatrixSetDataCudaArrayInterface(DMatrixHandle handle, const char *c_interface_str);
+
 
 /*!
  * \brief Set data on a DMatrix proxy.
@@ -481,8 +451,8 @@ XGProxyDMatrixSetDataCudaArrayInterface(DMatrixHandle handle,
  *
  * \return 0 when success, -1 when failure happens
  */
-XGB_DLL int XGProxyDMatrixSetDataCudaColumnar(DMatrixHandle handle,
-                                              const char *c_interface_str);
+XGB_DLL int XGProxyDMatrixSetDataCudaColumnar(DMatrixHandle handle, const char *c_interface_str);
+
 
 /*!
  * \brief Set data on a DMatrix proxy.
@@ -493,8 +463,8 @@ XGB_DLL int XGProxyDMatrixSetDataCudaColumnar(DMatrixHandle handle,
  *
  * \return 0 when success, -1 when failure happens
  */
-XGB_DLL int XGProxyDMatrixSetDataDense(DMatrixHandle handle,
-                                       char const *c_interface_str);
+XGB_DLL int XGProxyDMatrixSetDataDense(DMatrixHandle handle, char const *c_interface_str);
+
 
 /*!
  * \brief Set data on a DMatrix proxy.
@@ -506,9 +476,8 @@ XGB_DLL int XGProxyDMatrixSetDataDense(DMatrixHandle handle,
  *
  * \return 0 when success, -1 when failure happens
  */
-XGB_DLL int XGProxyDMatrixSetDataCSR(DMatrixHandle handle, char const *indptr,
-                                     char const *indices, char const *data,
-                                     bst_ulong ncol);
+XGB_DLL int XGProxyDMatrixSetDataCSR(DMatrixHandle handle, char const *indptr, char const *indices, char const *data, bst_ulong ncol);
+
 
 /*
  * ==========================- End data callback APIs ==========================
@@ -516,6 +485,7 @@ XGB_DLL int XGProxyDMatrixSetDataCSR(DMatrixHandle handle, char const *indptr,
 
 
 XGB_DLL int XGImportArrowRecordBatch(DataIterHandle data_handle, void *ptr_array, void *ptr_schema);
+
 
 /*!
  * \brief Construct DMatrix from arrow using callbacks.  Arrow related C API is not stable
@@ -531,8 +501,8 @@ XGB_DLL int XGImportArrowRecordBatch(DataIterHandle data_handle, void *ptr_array
  *
  * \return 0 when success, -1 when failure happens
  */
-XGB_DLL int XGDMatrixCreateFromArrowCallback(XGDMatrixCallbackNext *next, char const *json_config,
-                                             DMatrixHandle *out);
+XGB_DLL int XGDMatrixCreateFromArrowCallback(XGDMatrixCallbackNext *next, char const *json_config, DMatrixHandle *out);
+
 
 /*!
  * \brief create a new dmatrix from sliced content of existing matrix
@@ -542,10 +512,9 @@ XGB_DLL int XGDMatrixCreateFromArrowCallback(XGDMatrixCallbackNext *next, char c
  * \param out a sliced new matrix
  * \return 0 when success, -1 when failure happens
  */
-XGB_DLL int XGDMatrixSliceDMatrix(DMatrixHandle handle,
-                                  const int *idxset,
-                                  bst_ulong len,
-                                  DMatrixHandle *out);
+XGB_DLL int XGDMatrixSliceDMatrix(DMatrixHandle handle, const int *idxset, bst_ulong len, DMatrixHandle *out);
+
+
 /*!
  * \brief create a new dmatrix from sliced content of existing matrix
  * \param handle instance of data matrix to be sliced
@@ -555,16 +524,16 @@ XGB_DLL int XGDMatrixSliceDMatrix(DMatrixHandle handle,
  * \param allow_groups allow slicing of an array with groups
  * \return 0 when success, -1 when failure happens
  */
-XGB_DLL int XGDMatrixSliceDMatrixEx(DMatrixHandle handle,
-                                    const int *idxset,
-                                    bst_ulong len,
-                                    DMatrixHandle *out,
-                                    int allow_groups);
+XGB_DLL int XGDMatrixSliceDMatrixEx(DMatrixHandle handle, const int *idxset, bst_ulong len, DMatrixHandle *out, int allow_groups);
+
+
 /*!
  * \brief free space in data matrix
  * \return 0 when success, -1 when failure happens
  */
 XGB_DLL int XGDMatrixFree(DMatrixHandle handle);
+
+
 /*!
  * \brief load a data matrix into binary file
  * \param handle a instance of data matrix
@@ -572,8 +541,8 @@ XGB_DLL int XGDMatrixFree(DMatrixHandle handle);
  * \param silent print statistics when saving
  * \return 0 when success, -1 when failure happens
  */
-XGB_DLL int XGDMatrixSaveBinary(DMatrixHandle handle,
-                                const char *fname, int silent);
+XGB_DLL int XGDMatrixSaveBinary(DMatrixHandle handle, const char *fname, int silent);
+
 
 /*!
  * \brief Set content in array interface to a content in info.
@@ -582,9 +551,8 @@ XGB_DLL int XGDMatrixSaveBinary(DMatrixHandle handle,
  * \param c_interface_str JSON string representation of array interface.
  * \return 0 when success, -1 when failure happens
  */
-XGB_DLL int XGDMatrixSetInfoFromInterface(DMatrixHandle handle,
-                                          char const* field,
-                                          char const* c_interface_str);
+XGB_DLL int XGDMatrixSetInfoFromInterface(DMatrixHandle handle, char const *field, char const *c_interface_str);
+
 
 /*!
  * \brief set float vector to a content in info
@@ -594,10 +562,9 @@ XGB_DLL int XGDMatrixSetInfoFromInterface(DMatrixHandle handle,
  * \param len length of array
  * \return 0 when success, -1 when failure happens
  */
-XGB_DLL int XGDMatrixSetFloatInfo(DMatrixHandle handle,
-                                  const char *field,
-                                  const float *array,
-                                  bst_ulong len);
+XGB_DLL int XGDMatrixSetFloatInfo(DMatrixHandle handle, const char *field, const float *array, bst_ulong len);
+
+
 /*!
  * \brief set uint32 vector to a content in info
  * \param handle a instance of data matrix
@@ -606,10 +573,8 @@ XGB_DLL int XGDMatrixSetFloatInfo(DMatrixHandle handle,
  * \param len length of array
  * \return 0 when success, -1 when failure happens
  */
-XGB_DLL int XGDMatrixSetUIntInfo(DMatrixHandle handle,
-                                 const char *field,
-                                 const unsigned *array,
-                                 bst_ulong len);
+XGB_DLL int XGDMatrixSetUIntInfo(DMatrixHandle handle, const char *field, const unsigned *array, bst_ulong len);
+
 
 /*!
  * \brief Set string encoded information of all features.
@@ -637,9 +602,8 @@ XGB_DLL int XGDMatrixSetUIntInfo(DMatrixHandle handle,
  *
  * \endcode
  */
-XGB_DLL int XGDMatrixSetStrFeatureInfo(DMatrixHandle handle, const char *field,
-                                       const char **features,
-                                       const bst_ulong size);
+XGB_DLL int XGDMatrixSetStrFeatureInfo(DMatrixHandle handle, const char *field, const char **features, const bst_ulong size);
+
 
 /*!
  * \brief Get string encoded information of all features.
@@ -676,9 +640,8 @@ XGB_DLL int XGDMatrixSetStrFeatureInfo(DMatrixHandle handle, const char *field,
  *
  * \endcode
  */
-XGB_DLL int XGDMatrixGetStrFeatureInfo(DMatrixHandle handle, const char *field,
-                                       bst_ulong *size,
-                                       const char ***out_features);
+XGB_DLL int XGDMatrixGetStrFeatureInfo(DMatrixHandle handle, const char *field, bst_ulong *size, const char ***out_features);
+
 
 /*!
  * \brief Set meta info from dense matrix.  Valid field names are:
@@ -705,8 +668,8 @@ XGB_DLL int XGDMatrixGetStrFeatureInfo(DMatrixHandle handle, const char *field,
  *
  * \return 0 when success, -1 when failure happens
  */
-XGB_DLL int XGDMatrixSetDenseInfo(DMatrixHandle handle, const char *field,
-                                  void const *data, bst_ulong size, int type);
+XGB_DLL int XGDMatrixSetDenseInfo(DMatrixHandle handle, const char *field, void const *data, bst_ulong size, int type);
+
 
 /*!
  * \brief (deprecated) Use XGDMatrixSetUIntInfo instead. Set group of the training matrix
@@ -715,9 +678,8 @@ XGB_DLL int XGDMatrixSetDenseInfo(DMatrixHandle handle, const char *field,
  * \param len length of array
  * \return 0 when success, -1 when failure happens
  */
-XGB_DLL int XGDMatrixSetGroup(DMatrixHandle handle,
-                              const unsigned *group,
-                              bst_ulong len);
+XGB_DLL int XGDMatrixSetGroup(DMatrixHandle handle, const unsigned *group, bst_ulong len);
+
 
 /*!
  * \brief get float info vector from matrix.
@@ -727,10 +689,9 @@ XGB_DLL int XGDMatrixSetGroup(DMatrixHandle handle,
  * \param out_dptr pointer to the result
  * \return 0 when success, -1 when failure happens
  */
-XGB_DLL int XGDMatrixGetFloatInfo(const DMatrixHandle handle,
-                                  const char *field,
-                                  bst_ulong* out_len,
-                                  const float **out_dptr);
+XGB_DLL int XGDMatrixGetFloatInfo(const DMatrixHandle handle, const char *field, bst_ulong *out_len, const float **out_dptr);
+
+
 /*!
  * \brief get uint32 info vector from matrix
  * \param handle a instance of data matrix
@@ -739,26 +700,27 @@ XGB_DLL int XGDMatrixGetFloatInfo(const DMatrixHandle handle,
  * \param out_dptr pointer to the result
  * \return 0 when success, -1 when failure happens
  */
-XGB_DLL int XGDMatrixGetUIntInfo(const DMatrixHandle handle,
-                                 const char *field,
-                                 bst_ulong* out_len,
-                                 const unsigned **out_dptr);
+XGB_DLL int XGDMatrixGetUIntInfo(const DMatrixHandle handle, const char *field, bst_ulong *out_len, const unsigned **out_dptr);
+
+
 /*!
  * \brief get number of rows.
  * \param handle the handle to the DMatrix
  * \param out The address to hold number of rows.
  * \return 0 when success, -1 when failure happens
  */
-XGB_DLL int XGDMatrixNumRow(DMatrixHandle handle,
-                            bst_ulong *out);
+XGB_DLL int XGDMatrixNumRow(DMatrixHandle handle, bst_ulong *out);
+
+
 /*!
  * \brief get number of columns
  * \param handle the handle to the DMatrix
  * \param out The output of number of columns
  * \return 0 when success, -1 when failure happens
  */
-XGB_DLL int XGDMatrixNumCol(DMatrixHandle handle,
-                            bst_ulong *out);
+XGB_DLL int XGDMatrixNumCol(DMatrixHandle handle, bst_ulong *out);
+
+
 // --- start XGBoost class
 /*!
  * \brief create xgboost learner
@@ -767,15 +729,16 @@ XGB_DLL int XGDMatrixNumCol(DMatrixHandle handle,
  * \param out handle to the result booster
  * \return 0 when success, -1 when failure happens
  */
-XGB_DLL int XGBoosterCreate(const DMatrixHandle dmats[],
-                            bst_ulong len,
-                            BoosterHandle *out);
+XGB_DLL int XGBoosterCreate(const DMatrixHandle dmats[], bst_ulong len, BoosterHandle *out);
+
+
 /*!
  * \brief free obj in handle
  * \param handle handle to be freed
  * \return 0 when success, -1 when failure happens
  */
 XGB_DLL int XGBoosterFree(BoosterHandle handle);
+
 
 /*!
  * \brief Slice a model using boosting index. The slice m:n indicates taking all trees
@@ -790,9 +753,8 @@ XGB_DLL int XGBoosterFree(BoosterHandle handle);
  *
  * \return 0 when success, -1 when failure happens, -2 when index is out of bound.
  */
-XGB_DLL int XGBoosterSlice(BoosterHandle handle, int begin_layer,
-                           int end_layer, int step,
-                           BoosterHandle *out);
+XGB_DLL int XGBoosterSlice(BoosterHandle handle, int begin_layer, int end_layer, int step, BoosterHandle *out);
+
 
 /*!
  * \brief Get number of boosted rounds from gradient booster.  When process_type is
@@ -801,7 +763,8 @@ XGB_DLL int XGBoosterSlice(BoosterHandle handle, int begin_layer,
  * \param out Pointer to output integer.
  * \return 0 when success, -1 when failure happens
  */
-XGB_DLL int XGBoosterBoostedRounds(BoosterHandle handle, int* out);
+XGB_DLL int XGBoosterBoostedRounds(BoosterHandle handle, int *out);
+
 
 /*!
  * \brief set parameters
@@ -810,17 +773,16 @@ XGB_DLL int XGBoosterBoostedRounds(BoosterHandle handle, int* out);
  * \param value value of parameter
  * \return 0 when success, -1 when failure happens
  */
-XGB_DLL int XGBoosterSetParam(BoosterHandle handle,
-                              const char *name,
-                              const char *value);
+XGB_DLL int XGBoosterSetParam(BoosterHandle handle, const char *name, const char *value);
+
 
 /*!
  * \brief get number of features
  * \param out number of features
  * \return 0 when success, -1 when failure happens
  */
-XGB_DLL int XGBoosterGetNumFeature(BoosterHandle handle,
-                                   bst_ulong *out);
+XGB_DLL int XGBoosterGetNumFeature(BoosterHandle handle, bst_ulong *out);
+
 
 /*!
  * \brief update the model in one round using dtrain
@@ -829,9 +791,9 @@ XGB_DLL int XGBoosterGetNumFeature(BoosterHandle handle,
  * \param dtrain training data
  * \return 0 when success, -1 when failure happens
  */
-XGB_DLL int XGBoosterUpdateOneIter(BoosterHandle handle,
-                                   int iter,
-                                   DMatrixHandle dtrain);
+XGB_DLL int XGBoosterUpdateOneIter(BoosterHandle handle, int iter, DMatrixHandle dtrain);
+
+
 /*!
  * \brief update the model, by directly specify gradient and second order gradient,
  *        this can be used to replace UpdateOneIter, to support customized loss function
@@ -842,11 +804,9 @@ XGB_DLL int XGBoosterUpdateOneIter(BoosterHandle handle,
  * \param len length of grad/hess array
  * \return 0 when success, -1 when failure happens
  */
-XGB_DLL int XGBoosterBoostOneIter(BoosterHandle handle,
-                                  DMatrixHandle dtrain,
-                                  float *grad,
-                                  float *hess,
-                                  bst_ulong len);
+XGB_DLL int XGBoosterBoostOneIter(BoosterHandle handle, DMatrixHandle dtrain, float *grad, float *hess, bst_ulong len);
+
+
 /*!
  * \brief get evaluation statistics for xgboost
  * \param handle handle
@@ -857,12 +817,8 @@ XGB_DLL int XGBoosterBoostOneIter(BoosterHandle handle,
  * \param out_result the string containing evaluation statistics
  * \return 0 when success, -1 when failure happens
  */
-XGB_DLL int XGBoosterEvalOneIter(BoosterHandle handle,
-                                 int iter,
-                                 DMatrixHandle dmats[],
-                                 const char *evnames[],
-                                 bst_ulong len,
-                                 const char **out_result);
+XGB_DLL int XGBoosterEvalOneIter(BoosterHandle handle, int iter, DMatrixHandle dmats[], const char *evnames[], bst_ulong len, const char **out_result);
+
 
 /*!
  * \brief make prediction based on dmat (deprecated, use `XGBoosterPredictFromDMatrix` instead)
@@ -887,13 +843,9 @@ XGB_DLL int XGBoosterEvalOneIter(BoosterHandle handle,
  * \param out_result used to set a pointer to array
  * \return 0 when success, -1 when failure happens
  */
-XGB_DLL int XGBoosterPredict(BoosterHandle handle,
-                             DMatrixHandle dmat,
-                             int option_mask,
-                             unsigned ntree_limit,
-                             int training,
-                             bst_ulong *out_len,
-                             const float **out_result);
+XGB_DLL int XGBoosterPredict(BoosterHandle handle, DMatrixHandle dmat, int option_mask, unsigned ntree_limit, int training, bst_ulong *out_len, const float **out_result);
+
+
 /*!
  * \brief Make prediction from DMatrix, replacing `XGBoosterPredict`.
  *
@@ -950,12 +902,9 @@ XGB_DLL int XGBoosterPredict(BoosterHandle handle,
  *
  * \return 0 when success, -1 when failure happens
  */
-XGB_DLL int XGBoosterPredictFromDMatrix(BoosterHandle handle,
-                                        DMatrixHandle dmat,
-                                        char const* c_json_config,
-                                        bst_ulong const **out_shape,
-                                        bst_ulong *out_dim,
-                                        float const **out_result);
+XGB_DLL int XGBoosterPredictFromDMatrix(BoosterHandle handle, DMatrixHandle dmat, char const *c_json_config, bst_ulong const **out_shape, bst_ulong *out_dim, float const **out_result);
+
+
 /*
  * \brief Inplace prediction from CPU dense matrix.
  *
@@ -975,13 +924,8 @@ XGB_DLL int XGBoosterPredictFromDMatrix(BoosterHandle handle,
  *
  * \return 0 when success, -1 when failure happens
  */
-XGB_DLL int XGBoosterPredictFromDense(BoosterHandle handle,
-                                      char const *values,
-                                      char const *c_json_config,
-                                      DMatrixHandle m,
-                                      bst_ulong const **out_shape,
-                                      bst_ulong *out_dim,
-                                      const float **out_result);
+XGB_DLL int XGBoosterPredictFromDense(BoosterHandle handle, char const *values, char const *c_json_config, DMatrixHandle m, bst_ulong const **out_shape, bst_ulong *out_dim, const float **out_result);
+
 
 /*
  * \brief Inplace prediction from CPU CSR matrix.
@@ -1004,13 +948,8 @@ XGB_DLL int XGBoosterPredictFromDense(BoosterHandle handle,
  *
  * \return 0 when success, -1 when failure happens
  */
-XGB_DLL int XGBoosterPredictFromCSR(BoosterHandle handle, char const *indptr,
-                                    char const *indices, char const *values,
-                                    bst_ulong ncol,
-                                    char const *c_json_config, DMatrixHandle m,
-                                    bst_ulong const **out_shape,
-                                    bst_ulong *out_dim,
-                                    const float **out_result);
+XGB_DLL int XGBoosterPredictFromCSR(BoosterHandle handle, char const *indptr, char const *indices, char const *values, bst_ulong ncol, char const *c_json_config, DMatrixHandle m, bst_ulong const **out_shape, bst_ulong *out_dim, const float **out_result);
+
 
 /*
  * \brief Inplace prediction from CUDA Dense matrix (cupy in Python).
@@ -1029,10 +968,8 @@ XGB_DLL int XGBoosterPredictFromCSR(BoosterHandle handle, char const *indptr,
  *
  * \return 0 when success, -1 when failure happens
  */
-XGB_DLL int XGBoosterPredictFromCudaArray(
-    BoosterHandle handle, char const *values, char const *c_json_config,
-    DMatrixHandle m, bst_ulong const **out_shape, bst_ulong *out_dim,
-    const float **out_result);
+XGB_DLL int XGBoosterPredictFromCudaArray(BoosterHandle handle, char const *values, char const *c_json_config, DMatrixHandle m, bst_ulong const **out_shape, bst_ulong *out_dim, const float **out_result);
+
 
 /*
  * \brief Inplace prediction from CUDA dense dataframe (cuDF in Python).
@@ -1051,10 +988,7 @@ XGB_DLL int XGBoosterPredictFromCudaArray(
  *
  * \return 0 when success, -1 when failure happens
  */
-XGB_DLL int XGBoosterPredictFromCudaColumnar(
-    BoosterHandle handle, char const *values, char const *c_json_config,
-    DMatrixHandle m, bst_ulong const **out_shape, bst_ulong *out_dim,
-    const float **out_result);
+XGB_DLL int XGBoosterPredictFromCudaColumnar(BoosterHandle handle, char const *values, char const *c_json_config, DMatrixHandle m, bst_ulong const **out_shape, bst_ulong *out_dim, const float **out_result);
 
 
 /*
@@ -1086,16 +1020,18 @@ XGB_DLL int XGBoosterPredictFromCudaColumnar(
  * \param fname File URI or file name.
 * \return 0 when success, -1 when failure happens
  */
-XGB_DLL int XGBoosterLoadModel(BoosterHandle handle,
-                               const char *fname);
+XGB_DLL int XGBoosterLoadModel(BoosterHandle handle, const char *fname);
+
+
 /*!
  * \brief Save model into existing file
  * \param handle handle
  * \param fname File URI or file name.
  * \return 0 when success, -1 when failure happens
  */
-XGB_DLL int XGBoosterSaveModel(BoosterHandle handle,
-                               const char *fname);
+XGB_DLL int XGBoosterSaveModel(BoosterHandle handle, const char *fname);
+
+
 /*!
  * \brief load model from in memory buffer
  * \param handle handle
@@ -1103,9 +1039,8 @@ XGB_DLL int XGBoosterSaveModel(BoosterHandle handle,
  * \param len the length of the buffer
  * \return 0 when success, -1 when failure happens
  */
-XGB_DLL int XGBoosterLoadModelFromBuffer(BoosterHandle handle,
-                                         const void *buf,
-                                         bst_ulong len);
+XGB_DLL int XGBoosterLoadModelFromBuffer(BoosterHandle handle, const void *buf, bst_ulong len);
+
 
 /*!
  * \brief Save model into raw bytes, return header of the array.  User must copy the
@@ -1126,14 +1061,14 @@ XGB_DLL int XGBoosterLoadModelFromBuffer(BoosterHandle handle,
  *
  * \return 0 when success, -1 when failure happens
  */
-XGB_DLL int XGBoosterSaveModelToBuffer(BoosterHandle handle, char const *json_config,
-                                       bst_ulong *out_len, char const **out_dptr);
+XGB_DLL int XGBoosterSaveModelToBuffer(BoosterHandle handle, char const *json_config, bst_ulong *out_len, char const **out_dptr);
+
 
 /*!
  * \brief Deprecated, use `XGBoosterSaveModelToBuffer` instead.
  */
-XGB_DLL int XGBoosterGetModelRaw(BoosterHandle handle, bst_ulong *out_len,
-                                 const char **out_dptr);
+XGB_DLL int XGBoosterGetModelRaw(BoosterHandle handle, bst_ulong *out_len, const char **out_dptr);
+
 
 /*!
  * \brief Memory snapshot based serialization method.  Saves everything states
@@ -1144,8 +1079,9 @@ XGB_DLL int XGBoosterGetModelRaw(BoosterHandle handle, bst_ulong *out_len,
  * \param out_dptr the argument to hold the output data pointer
  * \return 0 when success, -1 when failure happens
  */
-XGB_DLL int XGBoosterSerializeToBuffer(BoosterHandle handle, bst_ulong *out_len,
-                                       const char **out_dptr);
+XGB_DLL int XGBoosterSerializeToBuffer(BoosterHandle handle, bst_ulong *out_len, const char **out_dptr);
+
+
 /*!
  * \brief Memory snapshot based serialization method.  Loads the buffer returned
  *        from `XGBoosterSerializeToBuffer'.
@@ -1155,8 +1091,8 @@ XGB_DLL int XGBoosterSerializeToBuffer(BoosterHandle handle, bst_ulong *out_len,
  * \param len the length of the buffer
  * \return 0 when success, -1 when failure happens
  */
-XGB_DLL int XGBoosterUnserializeFromBuffer(BoosterHandle handle,
-                                           const void *buf, bst_ulong len);
+XGB_DLL int XGBoosterUnserializeFromBuffer(BoosterHandle handle, const void *buf, bst_ulong len);
+
 
 /*!
  * \brief Initialize the booster from rabit checkpoint.
@@ -1165,8 +1101,8 @@ XGB_DLL int XGBoosterUnserializeFromBuffer(BoosterHandle handle,
  * \param version The output version of the model.
  * \return 0 when success, -1 when failure happens
  */
-XGB_DLL int XGBoosterLoadRabitCheckpoint(BoosterHandle handle,
-                                         int* version);
+XGB_DLL int XGBoosterLoadRabitCheckpoint(BoosterHandle handle, int *version);
+
 
 /*!
  * \brief Save the current checkpoint to rabit.
@@ -1188,8 +1124,9 @@ XGB_DLL int XGBoosterSaveRabitCheckpoint(BoosterHandle handle);
  *                be managed by caller.
  * \return 0 when success, -1 when failure happens
  */
-XGB_DLL int XGBoosterSaveJsonConfig(BoosterHandle handle, bst_ulong *out_len,
-                                    char const **out_str);
+XGB_DLL int XGBoosterSaveJsonConfig(BoosterHandle handle, bst_ulong *out_len, char const **out_str);
+
+
 /*!
  * \brief Load XGBoost's internal configuration from a JSON document.  Currently the
  *        support is experimental, function signature may change in the future without
@@ -1199,8 +1136,9 @@ XGB_DLL int XGBoosterSaveJsonConfig(BoosterHandle handle, bst_ulong *out_len,
  * \param json_parameters string representation of a JSON document.
  * \return 0 when success, -1 when failure happens
  */
-XGB_DLL int XGBoosterLoadJsonConfig(BoosterHandle handle,
-                                    char const *json_parameters);
+XGB_DLL int XGBoosterLoadJsonConfig(BoosterHandle handle, char const *json_parameters);
+
+
 /*
  * =========================== End Serialization APIs ==========================
  */
@@ -1215,11 +1153,8 @@ XGB_DLL int XGBoosterLoadJsonConfig(BoosterHandle handle,
  * \param out_dump_array pointer to hold representing dump of each model
  * \return 0 when success, -1 when failure happens
  */
-XGB_DLL int XGBoosterDumpModel(BoosterHandle handle,
-                               const char *fmap,
-                               int with_stats,
-                               bst_ulong *out_len,
-                               const char ***out_dump_array);
+XGB_DLL int XGBoosterDumpModel(BoosterHandle handle, const char *fmap, int with_stats, bst_ulong *out_len, const char ***out_dump_array);
+
 
 /*!
  * \brief dump model, return array of strings representing model dump
@@ -1231,12 +1166,8 @@ XGB_DLL int XGBoosterDumpModel(BoosterHandle handle,
  * \param out_dump_array pointer to hold representing dump of each model
  * \return 0 when success, -1 when failure happens
  */
-XGB_DLL int XGBoosterDumpModelEx(BoosterHandle handle,
-                                 const char *fmap,
-                                 int with_stats,
-                                 const char *format,
-                                 bst_ulong *out_len,
-                                 const char ***out_dump_array);
+XGB_DLL int XGBoosterDumpModelEx(BoosterHandle handle, const char *fmap, int with_stats, const char *format, bst_ulong *out_len, const char ***out_dump_array);
+
 
 /*!
  * \brief dump model, return array of strings representing model dump
@@ -1249,13 +1180,8 @@ XGB_DLL int XGBoosterDumpModelEx(BoosterHandle handle,
  * \param out_models pointer to hold representing dump of each model
  * \return 0 when success, -1 when failure happens
  */
-XGB_DLL int XGBoosterDumpModelWithFeatures(BoosterHandle handle,
-                                           int fnum,
-                                           const char **fname,
-                                           const char **ftype,
-                                           int with_stats,
-                                           bst_ulong *out_len,
-                                           const char ***out_models);
+XGB_DLL int XGBoosterDumpModelWithFeatures(BoosterHandle handle, int fnum, const char **fname, const char **ftype, int with_stats, bst_ulong *out_len, const char ***out_models);
+
 
 /*!
  * \brief dump model, return array of strings representing model dump
@@ -1269,14 +1195,8 @@ XGB_DLL int XGBoosterDumpModelWithFeatures(BoosterHandle handle,
  * \param out_models pointer to hold representing dump of each model
  * \return 0 when success, -1 when failure happens
  */
-XGB_DLL int XGBoosterDumpModelExWithFeatures(BoosterHandle handle,
-                                             int fnum,
-                                             const char **fname,
-                                             const char **ftype,
-                                             int with_stats,
-                                             const char *format,
-                                             bst_ulong *out_len,
-                                             const char ***out_models);
+XGB_DLL int XGBoosterDumpModelExWithFeatures(BoosterHandle handle, int fnum, const char **fname, const char **ftype, int with_stats, const char *format, bst_ulong *out_len, const char ***out_models);
+
 
 /*!
  * \brief Get string attribute from Booster.
@@ -1286,10 +1206,9 @@ XGB_DLL int XGBoosterDumpModelExWithFeatures(BoosterHandle handle,
  * \param success Whether the result is contained in out.
  * \return 0 when success, -1 when failure happens
  */
-XGB_DLL int XGBoosterGetAttr(BoosterHandle handle,
-                             const char* key,
-                             const char** out,
-                             int *success);
+XGB_DLL int XGBoosterGetAttr(BoosterHandle handle, const char *key, const char **out, int *success);
+
+
 /*!
  * \brief Set or delete string attribute.
  *
@@ -1299,9 +1218,9 @@ XGB_DLL int XGBoosterGetAttr(BoosterHandle handle,
  *              If nullptr, the attribute would be deleted.
  * \return 0 when success, -1 when failure happens
  */
-XGB_DLL int XGBoosterSetAttr(BoosterHandle handle,
-                             const char* key,
-                             const char* value);
+XGB_DLL int XGBoosterSetAttr(BoosterHandle handle, const char *key, const char *value);
+
+
 /*!
  * \brief Get the names of all attribute from Booster.
  * \param handle handle
@@ -1309,9 +1228,8 @@ XGB_DLL int XGBoosterSetAttr(BoosterHandle handle,
  * \param out pointer to hold the output attribute stings
  * \return 0 when success, -1 when failure happens
  */
-XGB_DLL int XGBoosterGetAttrNames(BoosterHandle handle,
-                                  bst_ulong* out_len,
-                                  const char*** out);
+XGB_DLL int XGBoosterGetAttrNames(BoosterHandle handle, bst_ulong *out_len, const char ***out);
+
 
 /*!
  * \brief Set string encoded feature info in Booster, similar to the feature
@@ -1328,9 +1246,8 @@ XGB_DLL int XGBoosterGetAttrNames(BoosterHandle handle,
  *
  * \return 0 when success, -1 when failure happens
  */
-XGB_DLL int XGBoosterSetStrFeatureInfo(BoosterHandle handle, const char *field,
-                                       const char **features,
-                                       const bst_ulong size);
+XGB_DLL int XGBoosterSetStrFeatureInfo(BoosterHandle handle, const char *field, const char **features, const bst_ulong size);
+
 
 /*!
  * \brief Get string encoded feature info from Booster, similar to feature info
@@ -1351,9 +1268,8 @@ XGB_DLL int XGBoosterSetStrFeatureInfo(BoosterHandle handle, const char *field,
  *
  * \return 0 when success, -1 when failure happens
  */
-XGB_DLL int XGBoosterGetStrFeatureInfo(BoosterHandle handle, const char *field,
-                                       bst_ulong *len,
-                                       const char ***out_features);
+XGB_DLL int XGBoosterGetStrFeatureInfo(BoosterHandle handle, const char *field, bst_ulong *len, const char ***out_features);
+
 
 /*!
  * \brief Calculate feature scores for tree models.  When used on linear model, only the
@@ -1380,10 +1296,7 @@ XGB_DLL int XGBoosterGetStrFeatureInfo(BoosterHandle handle, const char *field,
  *
  * \return 0 when success, -1 when failure happens
  */
-XGB_DLL int XGBoosterFeatureScore(BoosterHandle handle, const char *json_config,
-                                  bst_ulong *out_n_features,
-                                  char const ***out_features,
-                                  bst_ulong *out_dim,
-                                  bst_ulong const **out_shape,
-                                  float const **out_scores);
+XGB_DLL int XGBoosterFeatureScore(BoosterHandle handle, const char *json_config, bst_ulong *out_n_features, char const ***out_features, bst_ulong *out_dim, bst_ulong const **out_shape, float const **out_scores);
+
+
 #endif  // XGBOOST_C_API_H_

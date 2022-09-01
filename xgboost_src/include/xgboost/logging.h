@@ -21,82 +21,105 @@
 #include <utility>
 #include <vector>
 
-namespace xgboost {
-
-class BaseLogger {
- public:
-  BaseLogger() {
+namespace xgboost
+{
+    class BaseLogger
+    {
+    public:
+        BaseLogger()
+        {
 #if XGBOOST_LOG_WITH_TIME
-    log_stream_ << "[" << dmlc::DateLogger().HumanDate() << "] ";
+            log_stream_ << "[" << dmlc::DateLogger().HumanDate() << "] ";
 #endif  // XGBOOST_LOG_WITH_TIME
-  }
-  std::ostream& stream() { return log_stream_; }  // NOLINT
+        }
 
- protected:
-  std::ostringstream log_stream_;
-};
+        std::ostream &stream()
+        {
+            return log_stream_;
+        }  // NOLINT
 
-class ConsoleLogger : public BaseLogger {
- public:
-  enum class LogVerbosity {
-    kSilent = 0,
-    kWarning = 1,
-    kInfo = 2,   // information may interests users.
-    kDebug = 3,  // information only interesting to developers.
-    kIgnore = 4  // ignore global setting
-  };
-  using LV = LogVerbosity;
+    protected:
+        std::ostringstream log_stream_;
+    };
 
- private:
-  LogVerbosity cur_verbosity_;
+    class ConsoleLogger : public BaseLogger
+    {
+    public:
+        enum class LogVerbosity
+        {
+            kSilent = 0,
+            kWarning = 1,
+            kInfo = 2,   // information may interests users.
+            kDebug = 3,  // information only interesting to developers.
+            kIgnore = 4  // ignore global setting
+        };
+        using LV = LogVerbosity;
 
- public:
-  static void Configure(Args const& args);
+    private:
+        LogVerbosity cur_verbosity_;
 
-  static LogVerbosity GlobalVerbosity();
-  static LogVerbosity DefaultVerbosity();
-  static bool ShouldLog(LogVerbosity verbosity);
+    public:
+        static void Configure(Args const &args);
 
-  ConsoleLogger() = delete;
-  explicit ConsoleLogger(LogVerbosity cur_verb);
-  ConsoleLogger(const std::string& file, int line, LogVerbosity cur_verb);
-  ~ConsoleLogger();
-};
+        static LogVerbosity GlobalVerbosity();
 
-class TrackerLogger : public BaseLogger {
- public:
-  ~TrackerLogger();
-};
+        static LogVerbosity DefaultVerbosity();
+
+        static bool ShouldLog(LogVerbosity verbosity);
+
+        ConsoleLogger() = delete;
+
+        explicit ConsoleLogger(LogVerbosity cur_verb);
+
+        ConsoleLogger(const std::string &file, int line, LogVerbosity cur_verb);
+
+        ~ConsoleLogger();
+    };
+
+    class TrackerLogger : public BaseLogger
+    {
+    public:
+        ~TrackerLogger();
+    };
 
 // custom logging callback; disabled for R wrapper
 #if !defined(XGBOOST_STRICT_R_MODE) || XGBOOST_STRICT_R_MODE == 0
-class LogCallbackRegistry {
- public:
-  using Callback = void (*)(const char*);
-  LogCallbackRegistry()
-    : log_callback_([] (const char* msg) { std::cerr << msg << std::endl; }) {}
-  inline void Register(Callback log_callback) {
-    this->log_callback_ = log_callback;
-  }
-  inline Callback Get() const {
-    return log_callback_;
-  }
- private:
-  Callback log_callback_;
-};
+
+    class LogCallbackRegistry
+    {
+    public:
+        using Callback = void (*)(const char *);
+
+        LogCallbackRegistry() : log_callback_([](const char *msg) { std::cerr << msg << std::endl; })
+        {}
+
+        inline void Register(Callback log_callback)
+        {
+            this->log_callback_ = log_callback;
+        }
+
+        inline Callback Get() const
+        {
+            return log_callback_;
+        }
+
+    private:
+        Callback log_callback_;
+    };
+
 #else
-class LogCallbackRegistry {
- public:
-  using Callback = void (*)(const char*);
-  LogCallbackRegistry() {}
-  inline void Register(Callback log_callback) {}
-  inline Callback Get() const {
-    return nullptr;
-  }
-};
+    class LogCallbackRegistry {
+     public:
+      using Callback = void (*)(const char*);
+      LogCallbackRegistry() {}
+      inline void Register(Callback log_callback) {}
+      inline Callback Get() const {
+        return nullptr;
+      }
+    };
 #endif  // !defined(XGBOOST_STRICT_R_MODE) || XGBOOST_STRICT_R_MODE == 0
 
-using LogCallbackRegistryStore = dmlc::ThreadLocalStore<LogCallbackRegistry>;
+    using LogCallbackRegistryStore = dmlc::ThreadLocalStore<LogCallbackRegistry>;
 
 // Redefines LOG_WARNING for controling verbosity
 #if defined(LOG_WARNING)
