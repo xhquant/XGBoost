@@ -1,3 +1,3 @@
 # XGBoost
 
-XGBoost学
+XGBoost学习
